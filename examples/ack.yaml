@@ -1,0 +1,108 @@
+intent-profile: 1.0.0
+repository: https://github.com/example/platform
+specifications:
+  commits: 1.0.0
+  pull-requests: 1.0.0
+  changesets: 1.0.0
+  changelog: 1.0.0
+  release-manifest: 1.0.0
+
+types:
+  feat:
+    default-impact: minor
+  fix:
+    default-impact: patch
+  docs:
+    default-impact: none
+  perf:
+    default-impact: patch
+  security:
+    default-impact: patch
+
+scopes:
+  apps/gateway:
+    release-unit: apps/gateway
+  apps/billing:
+    release-unit: apps/billing
+  apps/worker:
+    release-unit: apps/worker
+  apps/admin:
+    release-unit: apps/admin
+  shared/auth:
+    requires-affects: true
+
+release-units:
+  apps/gateway:
+    streams:
+      stable:
+        release-line: current
+        channel: stable
+        changelog: .ack/changelog/apps-gateway-stable.yaml
+        manifests: .ack/releases/apps-gateway/stable
+  apps/billing:
+    streams:
+      stable:
+        release-line: current
+        channel: stable
+        changelog: .ack/changelog/apps-billing-stable.yaml
+        manifests: .ack/releases/apps-billing/stable
+  apps/worker:
+    streams:
+      stable:
+        release-line: "1"
+        channel: stable
+        changelog: .ack/changelog/apps-worker-stable.yaml
+        manifests: .ack/releases/apps-worker/stable
+      lts:
+        release-line: "1"
+        channel: long-term-support
+        changelog: .ack/changelog/apps-worker-lts.yaml
+        manifests: .ack/releases/apps-worker/lts
+  apps/admin:
+    streams:
+      stable:
+        release-line: current
+        channel: stable
+        changelog: .ack/changelog/apps-admin-stable.yaml
+        manifests: .ack/releases/apps-admin/stable
+
+ledger-directory: .ack/changelog
+release-manifest-directory: .ack/releases
+release-pattern: '^[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?$'
+
+release-types:
+  - feature
+  - fix
+  - documentation
+  - performance
+  - security
+  - reliability
+  - data
+  - compliance
+  - accessibility
+release-impacts: [none, patch, minor, major]
+audiences: [end-users, api-consumers, operators, integrators, security-teams]
+disclosures: [public, embargoed, redacted]
+channels: [stable, preview, long-term-support]
+
+changesets:
+  directory: .ack/changes
+  archive-directory: .ack/archive/changes
+  after-consumption: archive
+  conflict-policy: preserve
+  id-pattern: '^[a-z][a-z0-9-]+$'
+  required-impacts: [minor, major]
+  required-commit-types: [security]
+
+pull-requests:
+  directory: .ack/pull-requests
+  merge-strategy: squash
+  max-title-length: 72
+  max-body-length: 20000
+  require-ready: true
+  verification-statuses: [passed, failed, skipped, unavailable, not-applicable]
+
+require-release-ready: true
+max-header-length: 72
+max-body-line-length: 72
+large-diff-threshold: 500

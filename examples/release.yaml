@@ -1,0 +1,22 @@
+intent-release-manifest: 1.0.0
+release-unit: apps/worker
+release: 1.18.3
+stream: stable
+release-line: "1"
+channel: stable
+published-at: 2026-07-20T12:30:00Z
+source:
+  repository: https://github.com/example/platform
+  commit: 9af23e771b409af23e771b409af23e771b409af2
+  tag: worker/v1.18.3
+changelog:
+  path: .ack/changelog/apps-worker-stable.yaml
+  digest: sha256:ee22177d52d584c55b283a70f06f9f31eb3b72d45f775905e2c9c8bb99eecf90
+  changesets: [resume-settlement-jobs]
+artifacts:
+  - name: worker-linux-arm64
+    uri: dist/worker-linux-arm64
+    digest: sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+    media-type: application/vnd.example.binary
+provenance:
+  sboms: [dist/worker-linux-arm64.spdx.json]

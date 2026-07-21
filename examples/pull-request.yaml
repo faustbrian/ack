@@ -1,0 +1,34 @@
+intent-pull-request: 1.0.0
+id: bind-service-token-audiences
+title: "feat(apps/gateway/auth): bind service tokens to audiences"
+state: ready
+summary: Bind service tokens to the application that receives them
+rationale: Prevent credentials issued for one service from being replayed elsewhere
+approach: Validate the audience at the shared authentication boundary
+trade-offs: Existing clients must add an audience before upgrading
+targets:
+  - release-unit: apps/gateway
+    stream: stable
+    impact: major
+    migration: Add the gateway audience claim before upgrading
+risks:
+  - Existing clients without an audience will be rejected
+rollout: Deploy overlapping token issuers before enforcing audiences
+rollback: Disable audience enforcement while retaining issued claims
+verification:
+  - name: unit-tests
+    status: passed
+    command: go test ./...
+    evidence: CI run 481
+  - name: production-smoke
+    status: unavailable
+    command: null
+    evidence: No production access from pull-request CI
+provenance:
+  issues: [SEC-241]
+  changesets: [require-token-audiences]
+  decisions: [docs/decisions/0042-token-audiences.md]
+disclosure:
+  state: public
+base-revision: fedcba9876543210fedcba9876543210fedcba98
+evidence-revision: 0123456789abcdef0123456789abcdef01234567

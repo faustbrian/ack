@@ -1,0 +1,19 @@
+intent-changeset: 1.0.0
+id: resume-settlement-jobs
+source-repository: https://github.com/example/platform
+summary: Resume settlement jobs interrupted during shutdown
+rationale: Avoid manual recovery when deployments interrupt long jobs
+targets:
+  - release-unit: apps/worker
+    stream: stable
+    type: reliability
+    impact: patch
+    audiences: [operators]
+    migration: null
+provenance:
+  issues: [DEVELOP-219]
+relations:
+  reverts: []
+  supersedes: []
+disclosure:
+  state: public

@@ -1,0 +1,27 @@
+intent-changelog: 1.0.0
+release-unit: apps/worker
+release: 1.18.3
+source-repository: https://github.com/example/platform
+stream: stable
+release-line: "1"
+channel: stable
+date: null
+entries:
+  - id: resume-settlement-jobs
+    type: reliability
+    summary: Resume settlement jobs interrupted during shutdown
+    rationale: Avoid manual recovery when deployments interrupt long jobs
+    impact: patch
+    audiences: [operators]
+    migration: null
+    affects: [apps/worker]
+    provenance:
+      changesets: [resume-settlement-jobs]
+      commits: [9af23e771b40]
+      issues: [DEVELOP-219]
+    relations:
+      reverts: []
+      supersedes: []
+    disclosure:
+      state: public
+amendments: []
